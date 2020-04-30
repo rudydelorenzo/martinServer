@@ -36,9 +36,9 @@
         <h1>Hello World!</h1>
         <h2>Length of newCars = <%=newCars.size()%></h2>
         <h2>First car found is a <%=newCars.get(0)%><h2>
-        <%
-            parts = null;
-            newCars = null;
-        %>
+        <h3>Generation: <%=request.getParameter("generation")%></h3>
+        <h3>PL: <%=request.getParameter("listLink")%></h3>
+        <h3>Post Code: <%=request.getParameter("postCode")%></h3>
+        <h3>Distance: <%=request.getParameter("distance")%></h3>
     </body>
 </html>

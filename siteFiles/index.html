@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+        <meta http-equiv="X-UA-Compatible" content = "ie=edge">
+        <link rel="stylesheet" type="text/css" href="search.css">
+        <link rel="icon" type="image/png" href="graphics/logo.png">
+        <title>martinBMW - Search</title>
+    </head>
+    
+    <body>
+        <div id="CONTAINER">
+            <div id="graphicsDiv">
+                <img src="graphics/searchGraphics/text.png" id="bgText">
+                <img src="graphics/searchGraphics/blue.png" id="blueFill">
+                <img src="graphics/searchGraphics/logo.png" id="logo">
+            </div>
+            <div id="inputFields">
+                <form action="http://ec2-3-23-64-42.us-east-2.compute.amazonaws.com:8080/martinServer/index.jsp" method="post" id="searchform" style="display: contents"></form>
+                
+                <input name= "generation" form="searchform" type="text" placeholder="E39">
+                <label for="generation" class="formLabel">
+                    <span class="formLabelContent">Generation</span>
+                </label>
+                
+                <input name= "listLink" form="searchform" type="text" placeholder="Part List Link">
+                <label for="listLink" class="formLabel">
+                    <span class="formLabelContent">Parts</span>
+                </label>
+                
+                <input name= "postCode" form="searchform" type="text" placeholder="Post/Zip Code" autocomplete="shipping postal-code">
+                <label for="postCode" class="formLabel">
+                    <span class="formLabelContent">Post Code</span>
+                </label>
+                
+                <input name= "distance" form="searchform" type="text" placeholder="500">
+                <label for="distance" class="formLabel">
+                    <span class="formLabelContent">Max. Distance</span>
+                </label>
+                
+                <input name= "Submit" form="searchform" type="submit" value="FIND...">
+            </div>
+        </div>
+    </body>
+</html>

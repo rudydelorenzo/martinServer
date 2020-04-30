@@ -1,0 +1,10 @@
+/* font converted using font-converter.net. thank you! */
+@font-face {
+  font-family: "GreycliffCF-Regular";
+
+  src: url("./fonts/GreycliffCF-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./fonts/GreycliffCF-Regular.woff") format("woff"), /* Modern Browsers */
+    url("./fonts/GreycliffCF-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
