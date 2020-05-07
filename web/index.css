@@ -1,0 +1,301 @@
+@font-face {
+    font-family: "Greycliff";
+    src: url("/fonts/GreycliffCF-Medium.ttf") format("truetype"), /* Safari, Android, iOS */
+        url("/fonts/GreycliffCF-Medium.woff") format("woff"), /* Modern Browsers */
+        url("/fonts/GreycliffCF-Medium.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Greycliff";
+    src: url("/fonts/GreycliffCF-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+        url("/fonts/GreycliffCF-Regular.woff") format("woff"), /* Modern Browsers */
+        url("/fonts/GreycliffCF-Regular.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+}
+
+:root{
+    --martinBlue: rgb(0,113,188);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Greycliff, sans-serif;
+}
+
+#CONTAINER {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1000px 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    align-items: center;
+}   
+
+#graphicsDiv {
+    position: static;
+    z-index: 0;
+}
+
+#blueFill {
+    position: fixed;
+    top: 30px;
+    left: -390px;
+    height: 97%;
+    filter: drop-shadow(5px 3px 18px rgba(0,0,0,0.5));
+}
+
+@keyframes introText {
+    0%   {top: 150px; opacity: 0;}
+    100% {top: 113px; opacity: 1;}
+}
+
+#bgText {
+    position: fixed;
+    left: 220px;
+    top: 113px;
+    height: 330px;
+    
+    animation-name: introText;
+    animation-duration: 1.3s;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+}
+
+@keyframes introLogo {
+    0%   {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+#logo {
+    position: fixed;
+    left: 65px;
+    bottom: 40px;
+    height: 85px;
+    
+    animation-name: introLogo;
+    animation-duration: 2.5s;
+    animation-delay: 1.3s;
+    animation-fill-mode: both;
+}
+
+.copyright {
+    grid-column-start: 2;
+    
+    position: relative;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    
+    font-size: 10px;
+    text-align: right;
+    letter-spacing: 2px;
+    z-index: 1;
+    color: black;
+}
+
+.copyright:hover {
+    cursor: pointer;
+}
+
+#inputFields {
+    display: grid;
+    height: 100%;
+    width: 75%;
+    margin-top: 50px;
+    
+    
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 35px;
+    
+    justify-items: center;
+    align-content: center;
+    font-family: Greycliff, sans-serif;
+}
+
+input[type=text], select {
+    font-family: inherit;
+    font-size: 20px;
+    height: 35px;
+    
+    width: 100%;
+    padding: 10px;
+    border: 2px solid;
+    border-color: rgb(200,200,200);
+    border-radius: 10px;
+    background-color: transparent;
+    
+    transition: all 0.3s;
+}
+
+input[type=text]:hover, select:hover, table:hover {
+    border-color: rgb(0,113,188);
+}
+
+select {
+    height: 55px;
+    box-sizing: content-box;
+}
+
+#submitButton, input[type=reset] {
+    font-size: 20px;
+    font-family: inherit;
+    font-weight: bold;
+    letter-spacing: 5px;
+    
+    height: 50px;
+    width: 75%;
+    
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    border-color: transparent;
+    color: rgb(240,240,240);
+    background-color: rgb(0,113,188);
+    
+    box-shadow: 5px 3px 8px rgba(0,0,0,0.5);
+    
+    cursor: pointer;
+    
+    transition: all 0.3s;
+}
+
+input[type=reset] {
+    background-color: rgb(113,113,113);
+}
+
+#submitButton:hover, input[type=reset]:hover {
+    transform: scale(1.05);
+    
+    box-shadow: 5px 3px 18px rgba(0,0,0,0.5);
+}
+
+input[name="generation"], input[name="listLink"] {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+}
+
+.formLabel {
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+
+#genLabel {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+}
+
+#zipLabel {
+    grid-column-start: 1;
+    grid-column-end: span 1;
+}
+
+#distLabel {
+    grid-column-start: 2;
+    grid-column-end: span 1;
+}
+
+#partsLabel {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+}
+
+
+/* separator */
+.separator {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: rgb(200,200,200);
+    width: 100%;
+}
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid rgb(200,200,200);
+}
+.separator::before {
+    margin-right: .25em;
+}
+.separator::after {
+    margin-left: .25em;
+}
+
+/* parts table */
+table {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    
+    border: 2px solid;
+    border-color: rgb(200,200,200);
+    border-radius: 10px;
+    width: 100%;
+    
+    box-sizing: content-box;
+    padding: 10px;
+    
+    transition: all 0.3s;
+}
+
+th {
+    height: 35px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td > input[type=text] {
+    margin: 0px;
+    width: 90%;
+    background-color: transparent;
+    
+    font-family: inherit;
+    font-size: 20px;
+    height: 35px;
+    
+    padding: 5px;
+    border: 0px;
+    
+    transition: all 0.3s;
+}
+
+#tableButtonsContainer {
+    grid-column-start: 2;
+    position: relative;
+    margin-left: auto;
+    margin-right: 0;
+    
+    display: flex;
+    border: 2px solid rgb(200,200,200);
+    border-radius: 10px;
+    
+    transition: all 0.3s;
+}
+
+#tableButtonsContainer:hover {
+    border: 2px solid var(--martinBlue);
+}
+
+#tableButtonsContainer > button, span {
+    background-color: transparent;
+    
+    font-size: 20px;
+    border: 0;
+    outline: none;
+    
+    cursor: pointer;
+}
+
+#tableButtonsContainer > span {
+    color: rgb(200,200,200);
+}

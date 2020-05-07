@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+        <meta http-equiv="X-UA-Compatible" content = "ie=edge">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <link rel="icon" type="image/png" href="graphics/logo.png">
+        <script src="indexScripts.js"></script>
+        <title>martinBMW - Search</title>
+    </head>
+    
+    <body>
+        <div id="CONTAINER">
+            <div id="graphicsDiv">
+                <img src="graphics/searchGraphics/text.png" id="bgText">
+                <img src="graphics/searchGraphics/blue.png" id="blueFill">
+                <img src="graphics/searchGraphics/logo.png" id="logo">
+            </div>
+            <div id="inputFields">
+                <form action="search.jsp" method="post" id="searchform" style="display: contents"></form>
+                
+                <label for="generation" class="formLabel" id="genLabel">Generation</label>
+                <input name= "generation" form="searchform" type="text" placeholder="E39">
+                
+                <label for="postCode" class="formLabel" id="zipLabel">Post/Zip Code</label>
+                <label for="distance" class="formLabel" id="distLabel">Search Radius</label>
+                
+                <input name= "postCode" form="searchform" type="text" placeholder="Post/Zip Code" autocomplete="shipping postal-code">
+                <select name= "distance" form="searchform" type="text" placeholder="500">
+                    <option value="10">10 Miles</option>
+                    <option value="25">25 Miles</option>
+                    <option value="50">50 Miles</option>
+                    <option value="100">100 Miles</option>
+                    <option value="250">250 Miles</option>
+                    <option selected="selected" value="500">500 Miles</option>
+                    <option value="25000">Unlimited</option>
+                </select>
+                
+                <label class="formLabel" id="partsLabel">Parts</label>
+                <table id="partsTable">
+                    <tr>
+                        <th>Part Number</th>
+                        <th>Part Name (Optional)</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" placeholder="PN"></td>
+                        <td><input type="text" placeholder="Name"></td>
+                    </tr>
+                </table>
+                <input id="textListInput" name="textList" form="searchform" type="hidden">
+                <div id="tableButtonsContainer">
+                    <button onclick="addRow()">+</button>
+                    <span>|</span>
+                    <button onclick="deleteRow()">-</button>
+                </div>
+                
+                <div class="separator">OR</div>
+                
+                <label for="listLink" class="formLabel" id="partsLabel">Part List Link</label>
+                <input name="listLink" form="searchform" type="text" placeholder=
+                       "https://example.com/a_tsv_file.tsv">
+                
+                <input name= "Reset" form="searchform" type="reset" value="RESET">
+                <button id="submitButton" onclick="submitSearch()">FIND...</button>
+            </div>
+            <p class="copyright" onclick="showCopyright()">COPYRIGHT NOTICE</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,156 @@
+
+:root {
+    --martinGrey: rgb(200,200,200);
+    --martinBlue: rgb(0,113,188);
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* start of styling for loading screen */
+#loadingContainer {
+    height: 80%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#loadingDiv {
+    width: 100%;
+    align-self: stretch;
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 10px;
+    grid-auto-rows: 40px;
+    align-items: center;
+    justify-items: center;
+}
+
+#loadingDiv > h1 {
+    font-size: 50px;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.progUpdateContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+/* loader code */
+.loader {
+    border: 4px solid var(--martinGrey); /* Light grey */
+    border-top: 4px solid var(--martinBlue); /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* checkmark code */
+.progUpdateContainer > .checkMark {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    border: 0;
+}
+/* end of styling for loading screen */
+
+/* start styling for results */
+.scrollingContainer {
+    width: 100;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    
+    overflow: scroll;
+}
+
+.scrollingContainer::-webkit-scrollbar {
+    display: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.card {
+    margin: 20px;
+    min-height: 350px;
+    width: 300px;
+    min-width: 300px;
+    
+    border: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 2px 3px 9px rgba(0,0,0,0.5);
+    
+    display: grid;
+    grid-auto-rows: auto;
+    
+    transition: all 0.3s;
+}
+
+.card:hover {
+    transform:scale(1.05);
+    box-shadow: 2px 3px 15px rgba(0,0,0,0.5);
+    background-color: var(--martinBlue);
+}
+
+.card > img {
+    width: 100%;
+}
+
+.card > p, ul {
+    margin: 10px;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgb(20,20,20);
+    transition: all 0.2s;
+}
+
+.card:hover > p, .card:hover > ul {
+    color: rgb(240,240,240);
+}
+
+.card > .title {
+    margin-bottom: 0;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.card > .subtitle {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.card > .location {
+    margin-top: 25px;
+    margin-bottom: 4px;
+}
+
+.card > li {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.card > .vin {
+    
+    color: var(--martinGrey);
+}
+/* end cards coding */
