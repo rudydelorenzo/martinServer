@@ -1,3 +1,18 @@
+@font-face {
+    font-family: "Greycliff";
+    src: url("/fonts/GreycliffCF-Medium.ttf") format("truetype"), /* Safari, Android, iOS */
+        url("/fonts/GreycliffCF-Medium.woff") format("woff"), /* Modern Browsers */
+        url("/fonts/GreycliffCF-Medium.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Greycliff";
+    src: url("/fonts/GreycliffCF-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+        url("/fonts/GreycliffCF-Regular.woff") format("woff"), /* Modern Browsers */
+        url("/fonts/GreycliffCF-Regular.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+}
 
 :root {
     --martinGrey: rgb(200,200,200);
@@ -8,7 +23,7 @@ html, body {
     height: 100%;
     width: 100%;
     margin: 0;
-    font-family: sans-serif;
+    font-family: Greycliff, sans-serif;
 }
 
 /* start of styling for loading screen */
@@ -72,6 +87,72 @@ html, body {
 /* end of styling for loading screen */
 
 /* start styling for results */
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    
+    padding-bottom: 20px;
+}
+
+#logo {
+    margin: auto;
+    height: 200px;
+}
+
+/* relevance buttons */
+.relevanceSelector {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    overflow: hidden;
+    
+    border: 2px solid var(--martinGrey);
+    border-radius: 10px;
+    
+    transition: all 0.3s;
+}
+
+.relevanceSelector:hover {
+    border: 2px solid var(--martinBlue);
+}
+
+.relevanceSelector > button {
+    font-size: 20px;
+    
+    padding: 7px;
+    outline: none;
+    
+    transition: all 0.3s;
+}
+
+.relevanceSelector > button:hover {
+    color: black;
+    background: var(--martinGrey);
+}
+
+.relevanceSelector > span {
+    font-size: 20px;
+    padding: 7px;
+    
+    color: var(--martinGrey);
+}
+
+.buttonUnselected {
+    background: white;
+    color: black;
+    
+    border: none;
+}
+
+.buttonSelected {
+    background: var(--martinBlue);
+    color: white;
+    
+    border: none;
+}
+
+/* actual results styling */
 .scrollingContainer {
     width: 100;
     padding: 20px;
@@ -83,6 +164,11 @@ html, body {
 
 .scrollingContainer::-webkit-scrollbar {
     display: none;
+}
+
+h3 {
+    margin: 0;
+    padding-left: 35px;
 }
 
 a {

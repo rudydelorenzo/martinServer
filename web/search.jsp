@@ -108,55 +108,80 @@
         %>
         <c:choose>
             <c:when test="${!newCars.isEmpty()}">
-                <h2>Identical</h2>
-                <div class="scrollingContainer">
-                <%
-                    for (Car c : newCars) {
-                        if (c.relevance == Relevance.IDENTICAL) {
-                            out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
-                                    + "<img src='" + c.imageURL + "'>"
-                                    + "<p class='title'>%d %s</p>"
-                                    + "<p class='subtitle'>%s (%s)</p>"
-                                    + "<p class='location'><strong>%s</strong> | Row %d</p>"
-                                    + "<p class='vin'>VIN: %s</p>"
-                                    + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.trim, c.generation, c.locationName, c.row, c.vin));
-                        }
-                    }
-                %>
+                <div class="imageContainer">
+                    <img src="graphics/searchGraphics/text.png" id="logo">
                 </div>
-                <h2>Partial Match</h2>
-                <div class="scrollingContainer">
-                <%
-                    for (Car c : newCars) {
-                        if (c.relevance == Relevance.PARTIAL) {
-                            out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
-                                    + "<img src='" + c.imageURL + "'>"
-                                    + "<p class='title'>%d %s</p>"
-                                    + "<p class='subtitle'>%s (%s)</p>"
-                                    + "<p class='location'><strong>%s</strong> | Row %d</p>"
-                                    + "%s"
-                                    + "<p class='vin'>VIN: %s</p>"
-                                    + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.trim, c.generation, c.locationName, c.row, c.getPartsListHTML(), c.vin));
-                        }
-                    }
-                %>
+                
+                <div style="text-align: center; width: 100%;">
+                    <div class="relevanceSelector">
+                        <button class="buttonUnselected" onclick="showRelevance('identical')" id="identicalButton">IDENTICAL</button>
+                        <span>|</span>
+                        <button class="buttonUnselected" onclick="showRelevance('partial')" id="partialButton">PARTIAL</button>
+                        <span>|</span>
+                        <button class="buttonUnselected" onclick="showRelevance('other')" id="otherButton">OTHER</button>
+                        <span>|</span>
+                        <button class="buttonUnselected" onclick="showAll()" id="allButton">ALL</button>
+                    </div>
                 </div>
-                <h2>Other</h2>
-                <div class="scrollingContainer">
-                <%
-                    for (Car c : newCars) {
-                        if (c.relevance == Relevance.NONE) {
-                            out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
-                                    + "<p class='title'>%d %s</p>"
-                                    + "<p class='subtitle'>Generation: %s</p>"
-                                    + "<p class='location'><strong>%s</strong> | Row %d</p>"
-                                    + "<p class='vin'>VIN: %s</p>"
-                                    + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.generation, c.locationName, c.row, c.vin));
+                
+                
+                <div id="identicalContainer">
+                    <h3>Vehicles from the <%=generation%> generation</h3>
+                    <div class="scrollingContainer">
+                    <%
+                        for (Car c : newCars) {
+                            if (c.relevance == Relevance.IDENTICAL) {
+                                out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
+                                        + "<img src='" + c.imageURL + "'>"
+                                        + "<p class='title'>%d %s</p>"
+                                        + "<p class='subtitle'>%s (%s)</p>"
+                                        + "<p class='location'><strong>%s</strong> | Row %d</p>"
+                                        + "<p class='vin'>VIN: %s</p>"
+                                        + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.trim, c.generation, c.locationName, c.row, c.vin));
+                            }
                         }
-                    }
-                %>
+                    %>
+                    </div>
                 </div>
-                <script>enableDragging()</script>
+                <div id="partialContainer">
+                    <h3>Vehicles that may contain parts you're looking for</h3>
+                    <div class="scrollingContainer">
+                    <%
+                        for (Car c : newCars) {
+                            if (c.relevance == Relevance.PARTIAL) {
+                                out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
+                                        + "<img src='" + c.imageURL + "'>"
+                                        + "<p class='title'>%d %s</p>"
+                                        + "<p class='subtitle'>%s (%s)</p>"
+                                        + "<p class='location'><strong>%s</strong> | Row %d</p>"
+                                        + "%s"
+                                        + "<p class='vin'>VIN: %s</p>"
+                                        + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.trim, c.generation, c.locationName, c.row, c.getPartsListHTML(), c.vin));
+                            }
+                        }
+                    %>
+                    </div>
+                </div>
+                <div id="otherContainer">
+                    <h3>Other vehicles that are most likely irrelevant to your search</h3>
+                    <div class="scrollingContainer">
+                    <%
+                        for (Car c : newCars) {
+                            if (c.relevance == Relevance.NONE) {
+                                out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
+                                        + "<p class='title'>%d %s</p>"
+                                        + "<p class='subtitle'>Generation: %s</p>"
+                                        + "<p class='location'><strong>%s</strong> | Row %d</p>"
+                                        + "<p class='vin'>VIN: %s</p>"
+                                        + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.generation, c.locationName, c.row, c.vin));
+                            }
+                        }
+                    %>
+                    </div>
+                </div>
+                
+                <script>showAll();</script>
+                <script>enableDragging();</script>
             </c:when>    
             <c:otherwise>
                 <h2>Connection couldn't be established or no BMWs are present in any nearby locations.</h2>

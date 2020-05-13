@@ -66,3 +66,36 @@ function enableDragging() {
         makeDraggable(c[i]);
     }
 }
+
+function unselectAllButtons() {
+    buttons = document.getElementsByClassName("relevanceSelector")[0].children;
+    for (i = 0; i < buttons.length; i++) {
+        if (buttons[i].tagName == "BUTTON") {
+            buttons[i].className = "buttonUnselected"
+        }
+    }
+}
+
+function showAll() {
+    document.getElementById("identicalContainer").style.display = "block";
+    document.getElementById("partialContainer").style.display = "block";
+    document.getElementById("otherContainer").style.display = "block";
+    unselectAllButtons();
+    document.getElementById("allButton").className = "buttonSelected";
+}
+
+function hideAll() {
+    document.getElementById("identicalContainer").style.display = "none";
+    document.getElementById("partialContainer").style.display = "none";
+    document.getElementById("otherContainer").style.display = "none";
+    
+}
+
+function showRelevance(r) {
+    hideAll();
+    unselectAllButtons();
+    clickedButton = document.getElementById(r.concat("Button"));
+    clickedButton.className = "buttonSelected";
+    relevanceDiv = document.getElementById(r.concat("Container"));
+    relevanceDiv.style.display = "block";
+}
