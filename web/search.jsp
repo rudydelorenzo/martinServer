@@ -134,7 +134,7 @@
                                 out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
                                         + "<img src='" + c.imageURL + "'>"
                                         + "<p class='title'>%d %s</p>"
-                                        + "<p class='subtitle'>%s (%s)</p>"
+                                        + "<p class='subtitle'>%s   (%s)</p>"
                                         + "<p class='location'><strong>%s</strong> | Row %d</p>"
                                         + "<p class='vin'>VIN: %s</p>"
                                         + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.trim, c.generation, c.locationName, c.row, c.vin));
@@ -152,7 +152,7 @@
                                 out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
                                         + "<img src='" + c.imageURL + "'>"
                                         + "<p class='title'>%d %s</p>"
-                                        + "<p class='subtitle'>%s (%s)</p>"
+                                        + "<p class='subtitle'>%s   (%s)</p>"
                                         + "<p class='location'><strong>%s</strong> | Row %d</p>"
                                         + "%s"
                                         + "<p class='vin'>VIN: %s</p>"

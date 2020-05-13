@@ -71,7 +71,7 @@ function unselectAllButtons() {
     buttons = document.getElementsByClassName("relevanceSelector")[0].children;
     for (i = 0; i < buttons.length; i++) {
         if (buttons[i].tagName == "BUTTON") {
-            buttons[i].className = "buttonUnselected"
+            buttons[i].className = "buttonUnselected";
         }
     }
 }
