@@ -28,29 +28,41 @@ function addStage(stageText) {
 function makeDraggable(sliderElement) {
     var slider = sliderElement;
     var isDown = false;
+    var enableClick = true;
     var startX;
     var scrollLeft;
 
     slider.addEventListener('mousedown', (e) => {
-      isDown = true;
-      startX = e.pageX - slider.offsetLeft;
-      scrollLeft = slider.scrollLeft;
+        e.preventDefault();
+        isDown = true;
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
     });
-    slider.addEventListener('mouseleave', () => {
-      isDown = false;
+    slider.addEventListener('mouseleave', (e) => {
+        e.preventDefault();
+        isDown = false;
     });
-    slider.addEventListener('mouseup', () => {
-      isDown = false;
+    slider.addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        isDown = false;
+        console.log("mu");
     });
     slider.addEventListener('mousemove', (e) => {
-      if(!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 3; //scroll-fast
-      slider.scrollLeft = scrollLeft - walk;
+        if(!isDown) return;
+        console.log("mm");
+        enableClick = false;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
     });
     slider.addEventListener('click', (e) => {
-      e.preventDefault();
+        console.log("click");
+        console.log(enableClick);
+        if (!enableClick) {
+            e.preventDefault();
+            enableClick = true;
+        }
     });
 }
 
