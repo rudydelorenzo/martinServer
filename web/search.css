@@ -107,14 +107,10 @@ html, body {
     
     overflow: hidden;
     
-    border: 2px solid var(--martinGrey);
+    border: 2px solid var(--martinBlue);
     border-radius: 10px;
     
     transition: all 0.3s;
-}
-
-.relevanceSelector:hover {
-    border: 2px solid var(--martinBlue);
 }
 
 .relevanceSelector > button {

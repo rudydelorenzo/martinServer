@@ -15,6 +15,7 @@
 }
 
 :root{
+    --martinGrey: rgb(200,200,200);
     --martinBlue: rgb(0,113,188);
 }
 
@@ -124,7 +125,7 @@ input[type=text], select {
     width: 100%;
     padding: 10px;
     border: 2px solid;
-    border-color: rgb(200,200,200);
+    border-color: var(--martinGrey);
     border-radius: 10px;
     background-color: transparent;
     
@@ -132,7 +133,7 @@ input[type=text], select {
 }
 
 input[type=text]:hover, select:hover, table:hover {
-    border-color: rgb(0,113,188);
+    border-color: var(--martinBlue);
 }
 
 select {
@@ -154,7 +155,7 @@ select {
     border-radius: 10px;
     border-color: transparent;
     color: rgb(240,240,240);
-    background-color: rgb(0,113,188);
+    background-color: var(--martinBlue);
     
     box-shadow: 5px 3px 8px rgba(0,0,0,0.5);
     
@@ -215,13 +216,13 @@ input[name="generation"], input[name="listLink"] {
     display: flex;
     align-items: center;
     text-align: center;
-    color: rgb(200,200,200);
+    color: var(--martinGrey);
     width: 100%;
 }
 .separator::before, .separator::after {
     content: '';
     flex: 1;
-    border-bottom: 2px solid rgb(200,200,200);
+    border-bottom: 2px solid var(--martinGrey);
 }
 .separator::before {
     margin-right: .25em;
@@ -236,7 +237,7 @@ table {
     grid-column-end: span 2;
     
     border: 2px solid;
-    border-color: rgb(200,200,200);
+    border-color: var(--martinGrey);
     border-radius: 10px;
     width: 100%;
     
@@ -276,7 +277,7 @@ td > input[type=text] {
     margin-right: 0;
     
     display: flex;
-    border: 2px solid rgb(200,200,200);
+    border: 2px solid var(--martinGrey);
     border-radius: 10px;
     
     transition: all 0.3s;
@@ -297,5 +298,5 @@ td > input[type=text] {
 }
 
 #tableButtonsContainer > span {
-    color: rgb(200,200,200);
+    color: var(--martinGrey);
 }
