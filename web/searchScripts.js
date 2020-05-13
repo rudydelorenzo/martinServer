@@ -39,17 +39,13 @@ function makeDraggable(sliderElement) {
         scrollLeft = slider.scrollLeft;
     });
     slider.addEventListener('mouseleave', (e) => {
-        e.preventDefault();
         isDown = false;
     });
     slider.addEventListener('mouseup', (e) => {
-        e.preventDefault();
         isDown = false;
-        console.log("mu");
     });
     slider.addEventListener('mousemove', (e) => {
         if(!isDown) return;
-        console.log("mm");
         enableClick = false;
         e.preventDefault();
         const x = e.pageX - slider.offsetLeft;
@@ -57,8 +53,6 @@ function makeDraggable(sliderElement) {
         slider.scrollLeft = scrollLeft - walk;
     });
     slider.addEventListener('click', (e) => {
-        console.log("click");
-        console.log(enableClick);
         if (!enableClick) {
             e.preventDefault();
             enableClick = true;
