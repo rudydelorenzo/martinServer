@@ -115,11 +115,8 @@
                 <div style="text-align: center; width: 100%;">
                     <div class="relevanceSelector">
                         <button class="buttonUnselected" onclick="showRelevance('identical')" id="identicalButton">IDENTICAL</button>
-                        <span>|</span>
                         <button class="buttonUnselected" onclick="showRelevance('partial')" id="partialButton">PARTIAL</button>
-                        <span>|</span>
                         <button class="buttonUnselected" onclick="showRelevance('other')" id="otherButton">OTHER</button>
-                        <span>|</span>
                         <button class="buttonUnselected" onclick="showAll()" id="allButton">ALL</button>
                     </div>
                 </div>
@@ -187,6 +184,5 @@
                 <h2>Connection couldn't be established or no BMWs are present in any nearby locations.</h2>
             </c:otherwise>
         </c:choose>
-        
     </body>
 </html>

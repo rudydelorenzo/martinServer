@@ -116,7 +116,7 @@ html, body {
 .relevanceSelector > button {
     font-size: 20px;
     
-    padding: 7px;
+    padding: 10px;
     outline: none;
     
     transition: all 0.3s;
@@ -125,13 +125,6 @@ html, body {
 .relevanceSelector > button:hover {
     color: black;
     background: var(--martinGrey);
-}
-
-.relevanceSelector > span {
-    font-size: 20px;
-    padding: 7px;
-    
-    color: var(--martinGrey);
 }
 
 .buttonUnselected {

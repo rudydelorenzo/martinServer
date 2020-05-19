@@ -264,6 +264,8 @@ td > input[type=text] {
     font-size: 20px;
     height: 35px;
     
+    outline: none;
+    
     padding: 5px;
     border: 0px;
     
