@@ -191,6 +191,15 @@ a {
     width: 100%;
 }
 
+img.rotatedImage {
+    transform: rotate(180deg);
+}
+
+.card > ul {
+    max-height: 163px;
+    overflow-y: scroll;
+}
+
 .card > p, ul {
     margin: 10px;
     font-size: 15px;

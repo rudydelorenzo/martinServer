@@ -4,6 +4,13 @@
     Author     : rudydelorenzo
 --%>
 
+<%@page import="java.io.IOException"%>
+<%@page import="java.awt.Color"%>
+<%@page import="java.awt.Graphics2D"%>
+<%@page import="java.awt.Image"%>
+<%@page import="javax.imageio.ImageIO"%>
+<%@page import="java.net.URL"%>
+<%@page import="java.awt.image.BufferedImage"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="martinBMW.*"%>
@@ -42,6 +49,38 @@
             public String addStage(String stageText) {
                 String script = "<script>addStage('" + stageText + "')</script>";
                 return script;
+            }
+
+            public int getAverage(Color c) {
+                int total = 0;
+                total += c.getBlue();
+                total += c.getGreen();
+                total += c.getRed();
+
+                return total/3;
+            }
+
+            public boolean isUpright(String url) {
+                try {
+                    BufferedImage img = ImageIO.read(new URL(url));
+
+                    int smallHeight = 6;
+
+                    Image tmp = img.getScaledInstance(1, smallHeight, Image.SCALE_DEFAULT);
+                    BufferedImage small = new BufferedImage(1, smallHeight, BufferedImage.TYPE_INT_RGB);
+
+                    Graphics2D g2d = small.createGraphics();
+                    g2d.drawImage(tmp, 0, 0, null);
+                    g2d.dispose();
+
+                    int topBrightness = getAverage(new Color(small.getRGB(0, 0)));
+                    int bottomBrightness = getAverage(new Color(small.getRGB(0, smallHeight-1)));
+                    int diff = topBrightness - bottomBrightness;
+
+                    return !(diff < -10);
+                } catch (IOException e) {
+                    return true;
+                }
             }
         %>
         
@@ -84,7 +123,8 @@
                 if (!newCars.isEmpty()) {
                     System.out.printf("(%tH:%<tM:%<tS) STARTING IN-DEPTH SCAN%n", new Date());
                     for (Car c : newCars) {
-                        c.calculateRelevance(parts, "E39");
+                        c.upright = isUpright(c.thumbnailURL);
+                        c.calculateRelevance(parts, generation);
                         progress += (75.00/(float)newCars.size());
                         out.write(updateProgress(progress));
                         out.flush();
@@ -129,12 +169,13 @@
                         for (Car c : newCars) {
                             if (c.relevance == Relevance.IDENTICAL) {
                                 out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
-                                        + "<img src='" + c.imageURL + "'>"
+                                        + "<img %s src='" + c.imageURL + "'>"
                                         + "<p class='title'>%d %s</p>"
                                         + "<p class='subtitle'>%s   (%s)</p>"
                                         + "<p class='location'><strong>%s</strong> | Row %d</p>"
                                         + "<p class='vin'>VIN: %s</p>"
-                                        + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.trim, c.generation, c.locationName, c.row, c.vin));
+                                        + "</div></a>", c.carURL, c.upright ? "":"class=\"rotatedImage\"", 
+                                        c.year, c.model.replace("-", " "), c.trim, c.generation, c.locationName, c.row, c.vin));
                             }
                         }
                     %>
@@ -147,13 +188,14 @@
                         for (Car c : newCars) {
                             if (c.relevance == Relevance.PARTIAL) {
                                 out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
-                                        + "<img src='" + c.imageURL + "'>"
+                                        + "<img %s src='" + c.imageURL + "'>"
                                         + "<p class='title'>%d %s</p>"
                                         + "<p class='subtitle'>%s   (%s)</p>"
                                         + "<p class='location'><strong>%s</strong> | Row %d</p>"
                                         + "%s"
                                         + "<p class='vin'>VIN: %s</p>"
-                                        + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.trim, c.generation, c.locationName, c.row, c.getPartsListHTML(), c.vin));
+                                        + "</div></a>", c.carURL, c.upright ? "":"class=\"rotatedImage\"", 
+                                        c.year, c.model.replace("-", " "), c.trim, c.generation, c.locationName, c.row, c.getPartsListHTML(), c.vin));
                             }
                         }
                     %>
