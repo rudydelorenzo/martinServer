@@ -5,6 +5,8 @@
         <meta name="viewport" content="width = device-width, initial-scale = 1.0">
         <meta http-equiv="X-UA-Compatible" content = "ie=edge">
         <link rel="stylesheet" type="text/css" href="index.css">
+        <link rel="stylesheet" media="screen and (max-width: 800px)" type="text/css" href="index-mobile.css">
+        <link rel="stylesheet" media="screen and (max-height: 750px)" type="text/css" href="index-mobile.css">
         <link rel="icon" type="image/png" href="graphics/logo.png">
         <script src="indexScripts.js"></script>
         <title>martinBMW - Search</title>
@@ -61,8 +63,8 @@
                 <input name="listLink" form="searchform" type="text" placeholder=
                        "https://example.com/a_tsv_file.tsv">
                 
-                <input name= "Reset" form="searchform" type="reset" value="RESET">
-                <button id="submitButton" onclick="submitSearch()">FIND...</button>
+                <input name= "Reset" form="searchform" type="reset" value="Reset">
+                <button id="submitButton" onclick="submitSearch()">Find...</button>
             </div>
             <p class="copyright" onclick="showCopyright()">COPYRIGHT NOTICE</p>
         </div>

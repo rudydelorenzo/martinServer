@@ -24,25 +24,24 @@ html, body {
     margin: 0;
     font-family: Greycliff, sans-serif;
     
-    overflow: hidden;
+    overflow: scroll;
 }
 
 #CONTAINER {
-    display: grid;
+    display: flex;
+    flex-shrink: 0;
     height: 100%;
-    grid-template-columns: 3fr 2fr;
-    grid-template-rows: 1fr;
-    justify-items: center;
+    flex-direction: column;
+    justify-items: flex-start;
     align-items: center;
 }   
 
 #graphicsDiv {
-    position: static;
     z-index: 0;
 }
 
 #blueFill {
-    position: absolute;
+    display: none;
     top: 30px;
     left: -390px;
     height: 97%;
@@ -57,14 +56,10 @@ html, body {
 }
 
 #bgText {
-    position: absolute;
-    left: 10%;
-    width: 45vw;
+    display: block;
+    position: static;
     
-    animation-name: introText;
-    animation-duration: 1.3s;
-    animation-delay: 0.2s;
-    animation-fill-mode: both;
+    top: none;
 }
 
 @keyframes introLogo {
@@ -73,6 +68,7 @@ html, body {
 }
 
 #logo {
+    display: none;
     position: fixed;
     left: 65px;
     bottom: 40px;
@@ -85,18 +81,12 @@ html, body {
 }
 
 .copyright {
-    grid-column-start: 2;
-    
-    position: relative;
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: 40px;
-    margin-bottom: 20px;
+    margin: 20px;
+    position: static;
     
     font-size: 10px;
     text-align: right;
     letter-spacing: 2px;
-    z-index: 1;
     color: black;
 }
 
@@ -106,10 +96,8 @@ html, body {
 
 #inputFields {
     display: grid;
-    height: 100%;
+    height: auto;
     width: 75%;
-    margin-top: 50px;
-    
     
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 10px;
