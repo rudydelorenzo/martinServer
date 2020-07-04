@@ -99,3 +99,7 @@ function showRelevance(r) {
     relevanceDiv = document.getElementById(r.concat("Container"));
     relevanceDiv.style.display = "block";
 }
+
+document.getElementsByClassName("error-go-back")[0].addEventListener("click", function() {
+    window.history.back();
+})

@@ -16,6 +16,7 @@
 
 :root {
     --martinGrey: rgb(200,200,200);
+    --martinDarkGrey: rgb(51,51,51);
     --martinBlue: rgb(0,113,188);
 }
 
@@ -238,3 +239,102 @@ img.rotatedImage {
     color: var(--martinGrey);
 }
 /* end cards coding */
+
+/* start error styling */
+.container {
+    height: 100vh;
+    width: 100vw;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.error-container {
+    width: auto;
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 50px;
+}
+
+.error-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.error-text-container > img {
+    height: 200px;
+}
+
+.error-text-container > h5 {
+    font-size: 30px;
+    width: 450px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    text-align: right
+}
+
+.error-text-container > p {
+    font-size: 15px;
+    width: 450px;
+    text-align: right;
+}
+
+.error-buttons-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.error-help {
+    margin-right: 30px;
+    
+    height: 50px;
+    width: 170px;
+    
+    font-family: Greycliff, sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    
+    background-color: white;
+    color: var(--martinDarkGrey);
+    border: solid 2px var(--martinDarkGrey);
+    border-radius: 15px;
+    
+    transition: all 0.3s;
+}
+
+.error-help:hover {
+    background-color: var(--martinDarkGrey);
+    color: white;
+    
+    transform: scale(1.05);
+}
+
+.error-go-back {
+    height: 50px;
+    width: 170px;
+    
+    font-family: Greycliff, sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    
+    background-color: white;
+    color: var(--martinBlue);
+    border: solid 2px var(--martinBlue);
+    border-radius: 15px;
+    
+    transition: all 0.3s;
+}
+
+.error-go-back:hover {
+    background-color: var(--martinBlue);
+    color: white;
+    
+    transform: scale(1.05);
+}
+
+.triangle {
+    height: 300px;
+}

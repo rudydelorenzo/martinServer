@@ -27,8 +27,16 @@
         <meta http-equiv="X-UA-Compatible" content = "ie=edge">
         <link rel="stylesheet" type="text/css" href="search.css">
         <link rel="icon" type="image/png" href="graphics/logo.png">
-        <script src="searchScripts.js"></script>
         <title>martinBMW - Results</title>
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171589207-1"></script>
+        <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'UA-171589207-1');
+        </script>
     </head>
     <body>
         <div id='loadingContainer'>
@@ -87,6 +95,8 @@
         <%
             out.flush();
             
+            boolean error = true;
+            
             //set up all the variables
             String generation = request.getParameter("generation");
             String zip = request.getParameter("postCode").replace(" ", "");;
@@ -103,51 +113,78 @@
             } else {
                 parts = m.getParts(m.getTextFromURL(listLink));
             }
-
-
-            String URL = String.format("https://www.picknpull.com/check_inventory.aspx?Zip=%s&Make=90&Model=&Year=&Distance=%d", zip, distance);
             
-            progress = 10;
-            out.write(updateProgress(progress));
-            out.write(addStage("Searching for cars..."));
-            out.flush();
-
             ArrayList<Car> newCars = new ArrayList();
+            
+            if (!parts.isEmpty()) {
 
-            try {
-                newCars = m.getNewCars(URL);
-                progress = 25;
+                String URL = String.format("https://www.picknpull.com/check_inventory.aspx?Zip=%s&Make=90&Model=&Year=&Distance=%d", zip, distance);
+
+                progress = 10;
                 out.write(updateProgress(progress));
-                out.write(addStage("Looking up car details..."));
+                out.write(addStage("Searching for cars..."));
                 out.flush();
-                if (!newCars.isEmpty()) {
-                    System.out.printf("(%tH:%<tM:%<tS) STARTING IN-DEPTH SCAN%n", new Date());
-                    for (Car c : newCars) {
-                        c.upright = isUpright(c.thumbnailURL);
-                        c.calculateRelevance(parts, generation);
-                        progress += (75.00/(float)newCars.size());
+
+                try {
+                    newCars = m.getNewCars(URL);
+                    progress = 25;
+                    out.write(updateProgress(progress));
+                    out.write(addStage("Looking up car details..."));
+                    out.flush();
+                    if (!newCars.isEmpty()) {
+                        System.out.printf("(%tH:%<tM:%<tS) STARTING IN-DEPTH SCAN%n", new Date());
+                        for (Car c : newCars) {
+                            c.upright = isUpright(c.thumbnailURL);
+                            c.calculateRelevance(parts, generation);
+                            progress += (75.00/(float)newCars.size());
+                            out.write(updateProgress(progress));
+                            out.flush();
+                        }
+                        newCars = m.sortList(newCars);
+                        System.out.printf("(%tH:%<tM:%<tS) THERE ARE %d NEW CARS!%n%n", new Date(), newCars.size());
+                    } else {
+                        progress = 100;
                         out.write(updateProgress(progress));
                         out.flush();
+                        System.out.println("NO CARS FOUND");
                     }
-                    newCars = m.sortList(newCars);
-                    System.out.printf("(%tH:%<tM:%<tS) THERE ARE %d NEW CARS!%n%n", new Date(), newCars.size());
-                } else {
-                    progress = 100;
-                    out.write(updateProgress(progress));
-                    out.flush();
-                    System.out.println("NO CARS FOUND");
+                    
+                    error = false;
+                    
+                } catch (CouldNotConnectException e) {
+                    //TODO: Couldn't connect to picknpull, have to handle.
                 }
-            } catch (CouldNotConnectException e) {
-                //TODO: Couldn't connect to picknpull, have to handle.
             }
             out.write(addStage("Done!"));
             out.write("<script>"
                     + "var element = document.getElementById('loadingContainer');"
                     + "element.parentNode.removeChild(element);"
                     + "</script>");
+            
+            session.setAttribute("error", error);
+            session.setAttribute("newCars", newCars);
         %>
         <c:choose>
-            <c:when test="${!newCars.isEmpty()}">
+            <c:when test="${error}">
+                <div class="container">
+                    <div class="error-container">
+                        <div class="error-text-container">
+                            <img src="graphics/resultsGraphics/oops.png">
+                            <h5>It appears we broke down!</h5>
+                            <div class="error-buttons-container">
+                                <button class="error-help">Get help...</button>
+                                <button class="error-go-back">Go back!</button>
+                            </div>
+                        </div>
+                        <img src="graphics/resultsGraphics/triangle.png" class="triangle">
+                    </div>
+                </div>
+                <script src="searchScripts.js"></script>
+            </c:when>
+            <c:when test="${newCars.isEmpty()}">
+                
+            </c:when>
+            <c:otherwise>
                 <div class="imageContainer">
                     <img src="graphics/searchGraphics/text.png" id="logo">
                 </div>
@@ -218,12 +255,9 @@
                     %>
                     </div>
                 </div>
-                
+                <script src="searchScripts.js"></script>
                 <script>showAll();</script>
                 <script>enableDragging();</script>
-            </c:when>    
-            <c:otherwise>
-                <h2>Connection couldn't be established or no BMWs are present in any nearby locations.</h2>
             </c:otherwise>
         </c:choose>
     </body>
