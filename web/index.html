@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <title>martinBMW - Search</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width = device-width, initial-scale = 1.0">
         <meta http-equiv="X-UA-Compatible" content = "ie=edge">
+        <meta name="author" content="Rudy de Lorenzo">
+        <meta name="description" content="martinBMW helps you find used parts for your BMW at Pick-n-Pull scrapyards!">
+        <meta name="keywords" content="scrapyard, used parts, bmw used parts, bmw used, find used parts, find bmw parts">
+        
         <link rel="stylesheet" type="text/css" href="index.css">
         <link rel="stylesheet" media="screen and (max-width: 800px)" type="text/css" href="index-mobile.css">
         <link rel="stylesheet" media="screen and (max-height: 750px)" type="text/css" href="index-mobile.css">
         <link rel="icon" type="image/png" href="graphics/logo.png">
         <script src="indexScripts.js"></script>
-        <title>martinBMW - Search</title>
         
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171589207-1"></script>
@@ -25,21 +29,21 @@
     <body>
         <div id="CONTAINER">
             <div id="graphicsDiv">
-                <img src="graphics/searchGraphics/text.png" id="bgText">
-                <img src="graphics/searchGraphics/blue.png" id="blueFill">
-                <img src="graphics/searchGraphics/logo.png" id="logo">
+                <img src="graphics/searchGraphics/text.png" id="bgText" alt="martinBMW Logo">
+                <img src="graphics/searchGraphics/blue.png" id="blueFill" alt="Blue wave illustration">
+                <img src="graphics/searchGraphics/logo.png" id="logo" alt="BMW Logo">
             </div>
             <div id="inputFields">
                 <form action="search.jsp" method="post" id="searchform" style="display: contents"></form>
                 
                 <label for="generation" class="formLabel" id="genLabel">Generation</label>
-                <input name= "generation" form="searchform" type="text" placeholder="E39">
+                <input name= "generation" form="searchform" type="text" placeholder="E39" id="generation">
                 
                 <label for="postCode" class="formLabel" id="zipLabel">Post/Zip Code</label>
                 <label for="distance" class="formLabel" id="distLabel">Search Radius</label>
                 
-                <input name= "postCode" form="searchform" type="text" placeholder="Post/Zip Code" autocomplete="shipping postal-code">
-                <select name= "distance" form="searchform" type="text" placeholder="500">
+                <input name= "postCode" form="searchform" type="text" placeholder="Post/Zip Code" autocomplete="shipping postal-code" id="postCode">
+                <select name= "distance" form="searchform" type="text" placeholder="500" id="distance">
                     <option value="10">10 Miles</option>
                     <option value="25">25 Miles</option>
                     <option value="50">50 Miles</option>
@@ -69,8 +73,8 @@
                 
                 <div class="separator">OR</div>
                 
-                <label for="listLink" class="formLabel" id="partsLabel">Part List Link</label>
-                <input name="listLink" form="searchform" type="text" placeholder=
+                <label for="listLink" class="formLabel" id="partsLinkLabel">Part List Link</label>
+                <input name="listLink" form="searchform" id="listLink" type="text" placeholder=
                        "https://example.com/a_tsv_file.tsv">
                 
                 <input name= "Reset" form="searchform" type="reset" value="Reset">

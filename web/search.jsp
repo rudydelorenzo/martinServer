@@ -37,6 +37,7 @@
 
               gtag('config', 'UA-171589207-1');
         </script>
+        <script src="searchScripts.js"></script>
     </head>
     <body>
         <div id='loadingContainer'>
@@ -179,7 +180,6 @@
                         <img src="graphics/resultsGraphics/triangle.png" class="triangle">
                     </div>
                 </div>
-                <script src="searchScripts.js"></script>
             </c:when>
             <c:when test="${newCars.isEmpty()}">
                 
@@ -255,7 +255,7 @@
                     %>
                     </div>
                 </div>
-                <script src="searchScripts.js"></script>
+                
                 <script>showAll();</script>
                 <script>enableDragging();</script>
             </c:otherwise>
