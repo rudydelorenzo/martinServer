@@ -19,7 +19,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
@@ -191,10 +191,10 @@
                 
                 <div style="text-align: center; width: 100%;">
                     <div class="relevanceSelector">
+                        <button class="buttonUnselected" onclick="showAll()" id="allButton">ALL</button>
                         <button class="buttonUnselected" onclick="showRelevance('identical')" id="identicalButton">IDENTICAL</button>
                         <button class="buttonUnselected" onclick="showRelevance('partial')" id="partialButton">PARTIAL</button>
                         <button class="buttonUnselected" onclick="showRelevance('other')" id="otherButton">OTHER</button>
-                        <button class="buttonUnselected" onclick="showAll()" id="allButton">ALL</button>
                     </div>
                 </div>
                 
