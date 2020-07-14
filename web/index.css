@@ -15,7 +15,8 @@
 }
 
 :root{
-    --martinGrey: rgb(102,102,102);
+    --martinGrey: rgb(200,200,200);
+    --martinDarkGrey: rgb(51,51,51);
     --martinBlue: rgb(0,113,188);
 }
 
@@ -128,9 +129,11 @@ input[type=text], select {
     width: 100%;
     padding: 10px;
     border: 2px solid;
-    border-color: var(--martinGrey);
+    border-color: var(--martinDarkGrey);
     border-radius: 10px;
     background-color: transparent;
+    
+    outline: none;
     
     transition: all 0.3s;
 }
@@ -143,45 +146,53 @@ select {
     box-sizing: content-box;
 }
 
+.buttons-container {
+    grid-column: 1 /span 2;
+    
+    display: flex;
+    flex-direction: row;
+}
+
 #submitButton, input[type=reset] {
-    font-size: 20px;
-    font-family: inherit;
-    font-weight: bold;
-    letter-spacing: 3px;
-    
     height: 50px;
-    width: 75%;
-    max-width: 200px;
+    width: 170px;
     
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    border: solid 2px var(--martinBlue);
+    margin: 20px;
+    
+    font-family: Greycliff, sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    
+    background-color: white;
     color: var(--martinBlue);
-    background-color: transparent;
-    
-    cursor: pointer;
+    border: solid 2px var(--martinBlue);
+    border-radius: 15px;
     
     transition: all 0.3s;
 }
 
 input[type=reset] {
-    border-color: var(--martinGrey);
-    color: var(--martinGrey);
-}
-
-#submitButton:hover, input[type=reset]:hover {
-    transform: scale(1.05);
+    background-color: white;
+    color: var(--martinDarkGrey);
+    border: solid 2px var(--martinDarkGrey);
 }
 
 #submitButton:hover {
-    color: white;
     background-color: var(--martinBlue);
+    color: white;
+    
+    transform: scale(1.05);
+    
+    cursor: pointer;
 }
 
 input[type=reset]:hover {
+    background-color: var(--martinDarkGrey);
     color: white;
-    background-color: var(--martinGrey);
+    
+    transform: scale(1.05);
+    
+    cursor: pointer;
 }
 
 input[name="generation"], input[name="listLink"] {
@@ -233,13 +244,13 @@ input[name="generation"], input[name="listLink"] {
     display: flex;
     align-items: center;
     text-align: center;
-    color: var(--martinGrey);
+    color: var(--martinDarkGrey);
     width: 100%;
 }
 .separator::before, .separator::after {
     content: '';
     flex: 1;
-    border-bottom: 2px solid var(--martinGrey);
+    border-bottom: 2px solid var(--martinDarkGrey);
 }
 .separator::before {
     margin-right: .25em;
@@ -254,7 +265,7 @@ table {
     grid-column-end: span 2;
     
     border: 2px solid;
-    border-color: var(--martinGrey);
+    border-color: var(--martinDarkGrey);
     border-radius: 10px;
     width: 100%;
     
@@ -296,7 +307,7 @@ td > input[type=text] {
     margin-right: 0;
     
     display: flex;
-    border: 2px solid var(--martinGrey);
+    border: 2px solid var(--martinDarkGrey);
     border-radius: 10px;
     
     transition: all 0.3s;
@@ -317,5 +328,5 @@ td > input[type=text] {
 }
 
 #tableButtonsContainer > span {
-    color: var(--martinGrey);
+    color: var(--martinDarkGrey);
 }

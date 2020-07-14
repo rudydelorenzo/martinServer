@@ -29,7 +29,7 @@
         
         <link rel="stylesheet" type="text/css" href="search.css">
         <link rel="icon" type="image/png" href="graphics/logo.png">
-        <title>martinBMW - Results</title>
+        <title>Results - martinBMW</title>
         
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171589207-1"></script>
         <script>

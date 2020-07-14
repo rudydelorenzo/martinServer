@@ -16,6 +16,7 @@
 
 :root{
     --martinGrey: rgb(200,200,200);
+    --martinDarkGrey: rgb(51,51,51);
     --martinBlue: rgb(0,113,188);
 }
 
@@ -119,7 +120,7 @@ input[type=text], select {
     width: 100%;
     padding: 10px;
     border: 2px solid;
-    border-color: var(--martinGrey);
+    border-color: var(--martinDarkGrey);
     border-radius: 10px;
     background-color: transparent;
     
@@ -134,46 +135,6 @@ select {
     box-sizing: content-box;
 }
 
-#submitButton, input[type=reset] {
-    font-size: 20px;
-    font-family: inherit;
-    font-weight: bold;
-    letter-spacing: 3px;
-    
-    height: 50px;
-    width: 75%;
-    max-width: 200px;
-    
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    border: solid 2px var(--martinBlue);
-    color: var(--martinBlue);
-    background-color: transparent;
-    
-    cursor: pointer;
-    
-    transition: all 0.3s;
-}
-
-input[type=reset] {
-    border-color: var(--martinGrey);
-    color: var(--martinGrey);
-}
-
-#submitButton:hover, input[type=reset]:hover {
-    transform: scale(1.05);
-}
-
-#submitButton:hover {
-    color: white;
-    background-color: var(--martinBlue);
-}
-
-input[type=reset]:hover {
-    color: white;
-    background-color: var(--martinGrey);
-}
 
 input[name="generation"], input[name="listLink"] {
     grid-column-start: 1;
@@ -217,13 +178,13 @@ input[name="generation"], input[name="listLink"] {
     display: flex;
     align-items: center;
     text-align: center;
-    color: var(--martinGrey);
+    color: var(--martinDarkGrey);
     width: 100%;
 }
 .separator::before, .separator::after {
     content: '';
     flex: 1;
-    border-bottom: 2px solid var(--martinGrey);
+    border-bottom: 2px solid var(--martinDarkGrey);
 }
 .separator::before {
     margin-right: .25em;
@@ -238,7 +199,7 @@ table {
     grid-column-end: span 2;
     
     border: 2px solid;
-    border-color: var(--martinGrey);
+    border-color: var(--martinDarkGrey);
     border-radius: 10px;
     width: 100%;
     
@@ -280,7 +241,7 @@ td > input[type=text] {
     margin-right: 0;
     
     display: flex;
-    border: 2px solid var(--martinGrey);
+    border: 2px solid var(--martinDarkGrey);
     border-radius: 10px;
     
     transition: all 0.3s;
@@ -301,5 +262,5 @@ td > input[type=text] {
 }
 
 #tableButtonsContainer > span {
-    color: var(--martinGrey);
+    color: var(--martinDarkGrey);
 }
