@@ -310,6 +310,8 @@ img.rotatedImage {
     color: white;
     
     transform: scale(1.05);
+    
+    cursor: pointer;
 }
 
 .error-go-back {
@@ -333,8 +335,55 @@ img.rotatedImage {
     color: white;
     
     transform: scale(1.05);
+    
+    cursor: pointer;
 }
 
 .triangle {
     height: 300px;
+}
+
+/* nothing found styling */
+
+.empty-container {
+    width: auto;
+    
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 50px;
+    
+    margin-bottom: 50px;
+}
+
+.empty-container > img {
+    width: 300px;
+}
+
+.empty-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.empty-text-container > h1 {
+    font-size: 50px;
+    width: 450px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: right
+}
+
+.empty-text-container > p {
+    font-size: 15px;
+    width: 450px;
+    
+    margin-bottom: 30px;
+    
+    text-align: right;
+}
+
+.error-buttons-container {
+    display: flex;
+    flex-direction: row;
 }

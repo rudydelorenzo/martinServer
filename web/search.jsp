@@ -25,6 +25,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width = device-width, initial-scale = 1.0">
         <meta http-equiv="X-UA-Compatible" content = "ie=edge">
+        <meta name="description" content="martinBMW results page.">
+        
         <link rel="stylesheet" type="text/css" href="search.css">
         <link rel="icon" type="image/png" href="graphics/logo.png">
         <title>martinBMW - Results</title>
@@ -98,24 +100,36 @@
             
             boolean error = true;
             
-            //set up all the variables
-            String generation = request.getParameter("generation");
-            String zip = request.getParameter("postCode").replace(" ", "");;
-            int distance = Integer.parseInt(request.getParameter("distance"));
-            String textList = request.getParameter("textList");
-            String listLink = request.getParameter("listLink");
             float progress = 0;
 
             martinBMW m = new martinBMW();
-
-            ArrayList<Part> parts;
-            if (!textList.equals("")) {
-                parts = m.getParts(textList);
-            } else {
-                parts = m.getParts(m.getTextFromURL(listLink));
-            }
             
+            //set up all the variables
+            ArrayList<Part> parts = new ArrayList();            
             ArrayList<Car> newCars = new ArrayList();
+            String generation = "";
+            String zip = "";
+            int distance = 0;
+            String textList = "";
+            String listLink = "";
+        
+            try {
+                generation = request.getParameter("generation");
+                zip = request.getParameter("postCode").replace(" ", "");;
+                distance = Integer.parseInt(request.getParameter("distance"));
+                textList = request.getParameter("textList");
+                listLink = request.getParameter("listLink");
+                
+                
+                if (!textList.equals("")) {
+                    parts = m.getParts(textList);
+                } else {
+                    parts = m.getParts(m.getTextFromURL(listLink));
+                }
+                
+            } catch (NullPointerException e) {
+                error = true;
+            }
             
             if (!parts.isEmpty()) {
 
@@ -180,9 +194,23 @@
                         <img src="graphics/resultsGraphics/triangle.png" class="triangle">
                     </div>
                 </div>
+                <script>assignErrorListeners();</script>
             </c:when>
             <c:when test="${newCars.isEmpty()}">
-                
+                <div class="container">
+                    <div class="empty-container">
+                        <div class="empty-text-container">
+                            <h1>There's nothing here.</h1>
+                            <p>The search returned no results. Try widening your search radius.</p>
+                            <div class="error-buttons-container">
+                                <button class="error-help">Get help...</button>
+                                <button class="error-go-back">Go back!</button>
+                            </div>
+                        </div>
+                        <img src="graphics/resultsGraphics/parking.png">
+                    </div>
+                </div>
+                <script>assignErrorListeners();</script>
             </c:when>
             <c:otherwise>
                 <div class="imageContainer">

@@ -100,8 +100,10 @@ function showRelevance(r) {
     relevanceDiv.style.display = "block";
 }
 
-if ((!!document.getElementsByClassName("error-go-back")[0])) {
-    document.getElementsByClassName("error-go-back")[0].addEventListener("click", function() {
-        window.history.back();
-    });
+function assignErrorListeners() {
+    if ((!!document.getElementsByClassName("error-go-back")[0])) {
+        document.getElementsByClassName("error-go-back")[0].addEventListener("click", function() {
+            window.history.back();
+        });
+    }
 }

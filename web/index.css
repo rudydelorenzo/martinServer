@@ -193,6 +193,8 @@ input[name="generation"], input[name="listLink"] {
     position: relative;
     width: 100%;
     text-align: left;
+    
+    margin-top: 10px;
 }
 
 #genLabel {
