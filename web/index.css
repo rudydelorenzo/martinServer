@@ -35,12 +35,20 @@ html, body {
     grid-template-rows: 1fr;
     justify-items: center;
     align-items: center;
+    
+    max-height: 100vh;
 }   
 
 #graphicsDiv {
     position: static;
     z-index: 0;
 }
+
+@keyframes introFill {
+    0%   {opacity: 0;}
+    100% {opacity: 1;}
+}
+
 
 #blueFill {
     position: absolute;
@@ -50,6 +58,11 @@ html, body {
     width: 80vw;
     max-width: 1600px;
     filter: drop-shadow(5px 3px 18px rgba(0,0,0,0.5));
+    
+    animation-name: introFill;
+    animation-duration: 0.5s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 }
 
 @keyframes introText {
@@ -85,39 +98,78 @@ html, body {
     animation-fill-mode: both;
 }
 
-.copyright {
-    grid-column-start: 2;
-    
-    position: relative;
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: 40px;
-    margin-bottom: 20px;
-    
-    font-size: 10px;
-    text-align: right;
-    letter-spacing: 2px;
-    z-index: 1;
-    color: black;
+@keyframes enterFooter {
+    0%   {opacity: 0; transform: translateX(40px);}
+    100% {opacity: 1; transform: translateX(0px);}
 }
 
-.copyright:hover {
+.footer {
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    
+    display: flex;
+    flex-direction: row;
+    
+    animation-name: enterFooter;
+    animation-duration: 0.8s;
+    animation-delay: 1.5s;
+    animation-fill-mode: both;
+}
+
+.footer > P {
+    margin: 15px;
+    padding: 5px;
+    
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: black;
+    border-bottom: 1px solid transparent;
+    
+    transition: all 0.3s ease;
+}
+
+.footer > p:hover {
     cursor: pointer;
+    color: var(--martinBlue);
+    
+    border-bottom: 1px solid var(--martinBlue);
+}
+
+@keyframes enterInputs {
+    0%   {opacity: 0; transform: translateY(70px);}
+    100% {opacity: 1; transform: translateY(0px);}
+}
+
+.inputs-container {
+    height: 100vh;
+    width: 90%;
+    
+    display: flex;
+    justify-content: center;
+    
+    overflow: scroll;
+    
+    animation-name: enterInputs;
+    animation-duration: 1.3s;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
 }
 
 #inputFields {
     display: grid;
-    height: 100%;
-    width: 75%;
+    height: fit-content;
+    width: 90%;
     margin-top: 50px;
     
+    box-sizing: border-box;
     
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 10px;
     grid-column-gap: 35px;
     
     justify-items: center;
-    align-content: center;
+    margin: auto;
     font-family: Greycliff, sans-serif;
 }
 

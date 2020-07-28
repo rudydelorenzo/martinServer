@@ -1,5 +1,11 @@
-function showCopyright() {
-    alert("COPYRIGHT © 2020 - RUDY DE LORENZO\n\nBMW© AND THE BMW LOGO ARE REGISTERED TRADEMARKS\nOF BAYERISCHE MOTOREN WERKE AG. ALL RIGHTS RESERVED");
+function assignListeners() {
+    document.getElementById("copyright-button").addEventListener("click", function(e) {
+        alert("COPYRIGHT © 2020 - RUDY DE LORENZO\n\nBMW© AND THE BMW LOGO ARE REGISTERED TRADEMARKS\nOF BAYERISCHE MOTOREN WERKE AG. ALL RIGHTS RESERVED");
+    });
+
+    document.getElementById("donate-button").addEventListener("click", function(e) {
+        document.getElementById("paypalForm").submit();
+    });
 }
 
 function addRow() {

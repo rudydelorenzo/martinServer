@@ -55,6 +55,10 @@ html, body {
     letter-spacing: 2px;
 }
 
+progress {
+    margin-bottom: 10px;
+}
+
 .progUpdateContainer {
     display: flex;
     flex-direction: row;
@@ -100,7 +104,18 @@ html, body {
     height: 200px;
 }
 
+#logo:hover {
+    cursor: pointer;
+}
+
 /* relevance buttons */
+
+.relevance-selector-container {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 .relevanceSelector {
     display: inline-flex;
     flex-direction: row;
@@ -144,15 +159,25 @@ html, body {
 
 /* actual results styling */
 .scrollingContainer {
-    width: 100;
-    padding: 20px;
+    width: auto;
+    margin: 20px;
     display: flex;
     flex-direction: row;
     
     overflow: scroll;
+    overflow-y: hidden;
 }
 
 .scrollingContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.fullscreen {
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.hide {
     display: none;
 }
 
@@ -161,13 +186,22 @@ h3 {
     padding-left: 35px;
 }
 
-a {
+.location-label {
+    margin: 20px;
+    padding-right: 20px;
+    height: max-content;
+    font-size: 50px;
+    writing-mode: vertical-rl;
+    transform: scale(-1);
+}
+
+.cardLink {
     text-decoration: none;
 }
 
 .card {
     margin: 20px;
-    min-height: 350px;
+    min-height: fit-content;
     width: 300px;
     min-width: 300px;
     
@@ -386,4 +420,8 @@ img.rotatedImage {
 .error-buttons-container {
     display: flex;
     flex-direction: row;
+}
+
+.table-container {
+    display: none;
 }

@@ -4,6 +4,10 @@
     Author     : rudydelorenzo
 --%>
 
+<%@page import="java.util.concurrent.ThreadPoolExecutor"%>
+<%@page import="java.util.concurrent.TimeUnit"%>
+<%@page import="java.util.concurrent.ExecutorService"%>
+<%@page import="java.util.concurrent.Executors"%>
 <%@page import="java.io.IOException"%>
 <%@page import="java.awt.Color"%>
 <%@page import="java.awt.Graphics2D"%>
@@ -28,6 +32,7 @@
         <meta name="description" content="martinBMW results page.">
         
         <link rel="stylesheet" type="text/css" href="search.css">
+        <link rel="stylesheet" media="print" type="text/css" href="search-print.css">
         <link rel="icon" type="image/png" href="graphics/logo.png">
         <title>Results - martinBMW</title>
         
@@ -51,134 +56,161 @@
                     <p>Running part number lookup...</p>
                 </div>
             </div>
-        </div>
-        <%!
-            public String updateProgress(float prog) {
-                return "<script>document.getElementById('progBar').value = " + prog + ";</script>";
-            }
 
-            public String addStage(String stageText) {
-                String script = "<script>addStage('" + stageText + "')</script>";
-                return script;
-            }
-
-            public int getAverage(Color c) {
-                int total = 0;
-                total += c.getBlue();
-                total += c.getGreen();
-                total += c.getRed();
-
-                return total/3;
-            }
-
-            public boolean isUpright(String url) {
-                try {
-                    BufferedImage img = ImageIO.read(new URL(url));
-
-                    int smallHeight = 6;
-
-                    Image tmp = img.getScaledInstance(1, smallHeight, Image.SCALE_DEFAULT);
-                    BufferedImage small = new BufferedImage(1, smallHeight, BufferedImage.TYPE_INT_RGB);
-
-                    Graphics2D g2d = small.createGraphics();
-                    g2d.drawImage(tmp, 0, 0, null);
-                    g2d.dispose();
-
-                    int topBrightness = getAverage(new Color(small.getRGB(0, 0)));
-                    int bottomBrightness = getAverage(new Color(small.getRGB(0, smallHeight-1)));
-                    int diff = topBrightness - bottomBrightness;
-
-                    return !(diff < -10);
-                } catch (IOException e) {
-                    return true;
+            <%!
+                public String updateProgress(float prog) {
+                    return "<script>document.getElementById('progBar').value = " + prog + ";</script>";
                 }
-            }
-        %>
-        
-        <%
-            out.flush();
-            
-            boolean error = true;
-            
-            float progress = 0;
 
-            martinBMW m = new martinBMW();
-            
-            //set up all the variables
-            ArrayList<Part> parts = new ArrayList();            
-            ArrayList<Car> newCars = new ArrayList();
-            String generation = "";
-            String zip = "";
-            int distance = 0;
-            String textList = "";
-            String listLink = "";
-        
-            try {
-                generation = request.getParameter("generation");
-                zip = request.getParameter("postCode").replace(" ", "");;
-                distance = Integer.parseInt(request.getParameter("distance"));
-                textList = request.getParameter("textList");
-                listLink = request.getParameter("listLink");
-                
-                
-                if (!textList.equals("")) {
-                    parts = m.getParts(textList);
-                } else {
-                    parts = m.getParts(m.getTextFromURL(listLink));
+                public String addStage(String stageText) {
+                    String script = "<script>addStage('" + stageText + "')</script>";
+                    return script;
                 }
-                
-            } catch (NullPointerException e) {
-                error = true;
-            }
-            
-            if (!parts.isEmpty()) {
 
-                String URL = String.format("https://www.picknpull.com/check_inventory.aspx?Zip=%s&Make=90&Model=&Year=&Distance=%d", zip, distance);
+                public int getAverage(Color c) {
+                    int total = 0;
+                    total += c.getBlue();
+                    total += c.getGreen();
+                    total += c.getRed();
 
-                progress = 10;
-                out.write(updateProgress(progress));
-                out.write(addStage("Searching for cars..."));
+                    return total/3;
+                }
+
+                public boolean isUpright(String url) {
+                    try {
+                        BufferedImage img = ImageIO.read(new URL(url));
+
+                        int smallHeight = 6;
+
+                        Image tmp = img.getScaledInstance(1, smallHeight, Image.SCALE_DEFAULT);
+                        BufferedImage small = new BufferedImage(1, smallHeight, BufferedImage.TYPE_INT_RGB);
+
+                        Graphics2D g2d = small.createGraphics();
+                        g2d.drawImage(tmp, 0, 0, null);
+                        g2d.dispose();
+
+                        int topBrightness = getAverage(new Color(small.getRGB(0, 0)));
+                        int bottomBrightness = getAverage(new Color(small.getRGB(0, smallHeight-1)));
+                        int diff = topBrightness - bottomBrightness;
+
+                        return !(diff < -10);
+                    } catch (IOException e) {
+                        return true;
+                    }
+                }
+            %>
+
+            <%
                 out.flush();
 
+                boolean error = true;
+
+                float progress = 0;
+
+                martinBMW m = new martinBMW();
+
+                //set up all the variables
+                ArrayList<Part> parts = new ArrayList();            
+                ArrayList<Car> newCars = new ArrayList();
+                String generation = "";
+                String zip = "";
+                int distance = 0;
+                String textList = "";
+                String listLink = "";
+
                 try {
-                    newCars = m.getNewCars(URL);
-                    progress = 25;
+                    generation = request.getParameter("generation");
+                    zip = request.getParameter("postCode").replace(" ", "");;
+                    distance = Integer.parseInt(request.getParameter("distance"));
+                    textList = request.getParameter("textList");
+                    listLink = request.getParameter("listLink");
+
+
+                    if (!textList.equals("")) {
+                        parts = m.getParts(textList);
+                    } else {
+                        parts = m.getParts(m.getTextFromURL(listLink));
+                    }
+
+                } catch (NullPointerException e) {
+                    error = true;
+                }
+
+                if (!parts.isEmpty()) {
+
+                    String URL = String.format("https://www.picknpull.com/check_inventory.aspx?Zip=%s&Make=90&Model=&Year=&Distance=%d", zip, distance);
+
+                    progress = 10;
                     out.write(updateProgress(progress));
-                    out.write(addStage("Looking up car details..."));
+                    out.write(addStage("Searching for cars..."));
                     out.flush();
-                    if (!newCars.isEmpty()) {
-                        System.out.printf("(%tH:%<tM:%<tS) STARTING IN-DEPTH SCAN%n", new Date());
-                        for (Car c : newCars) {
-                            c.upright = isUpright(c.thumbnailURL);
-                            c.calculateRelevance(parts, generation);
-                            progress += (75.00/(float)newCars.size());
+
+                    try {
+                        newCars = m.getNewCars(URL);
+                        progress = 25;
+                        out.write(updateProgress(progress));
+                        out.write(addStage("Looking up car details..."));
+                        out.flush();
+                        if (!newCars.isEmpty()) {
+                            System.out.printf("(%tH:%<tM:%<tS) STARTING IN-DEPTH SCAN%n", new Date());
+
+                            //creating final copies of parts and generation variable for thread
+                            final ArrayList<Part> pr = parts;
+                            final String gen = generation;
+                            
+                            ThreadPoolExecutor es = (ThreadPoolExecutor)Executors.newFixedThreadPool(20);
+                            for (final Car c : newCars) {
+                                es.execute(new Runnable() {
+                                    public void run() {
+                                        c.upright = isUpright(c.thumbnailURL);
+                                        c.calculateRelevance(pr, gen);
+                                    }
+                                });
+                                
+                            }
+                            es.shutdown();
+                            
+                            float prevProgress = 0;
+                            float chunk = (float)75.00/newCars.size();
+                            while (true) {
+                                int completedThreads = (int)es.getCompletedTaskCount();
+                                progress = (float)25.00 + (((float)completedThreads)*(chunk));
+                                if (prevProgress != progress) {
+                                    out.write(updateProgress(progress));
+                                    out.flush();
+                                    prevProgress = progress;
+                                }
+                                if (completedThreads == newCars.size()) break;
+                            }
+
+                            newCars = m.cleanList(newCars);
+                            newCars = m.sortList(newCars);
+                            System.out.printf("(%tH:%<tM:%<tS) THERE ARE %d NEW CARS!%n%n", new Date(), newCars.size());
+                        } else {
+                            progress = 100;
                             out.write(updateProgress(progress));
                             out.flush();
+                            System.out.println("NO CARS FOUND");
                         }
-                        newCars = m.sortList(newCars);
-                        System.out.printf("(%tH:%<tM:%<tS) THERE ARE %d NEW CARS!%n%n", new Date(), newCars.size());
-                    } else {
-                        progress = 100;
-                        out.write(updateProgress(progress));
-                        out.flush();
-                        System.out.println("NO CARS FOUND");
+
+                        error = false;
+
+                    } catch (CouldNotConnectException e) {
+                        //TODO: Couldn't connect to picknpull, have to handle.
                     }
-                    
-                    error = false;
-                    
-                } catch (CouldNotConnectException e) {
-                    //TODO: Couldn't connect to picknpull, have to handle.
                 }
-            }
-            out.write(addStage("Done!"));
+                out.write(addStage("Done!"));
+                %>
+            </div>
+            <%
             out.write("<script>"
                     + "var element = document.getElementById('loadingContainer');"
                     + "element.parentNode.removeChild(element);"
                     + "</script>");
-            
+
             session.setAttribute("error", error);
             session.setAttribute("newCars", newCars);
-        %>
+            %>
         <c:choose>
             <c:when test="${error}">
                 <div class="container">
@@ -217,7 +249,7 @@
                     <img src="graphics/searchGraphics/text.png" id="logo">
                 </div>
                 
-                <div style="text-align: center; width: 100%;">
+                <div class="relevance-selector-container">
                     <div class="relevanceSelector">
                         <button class="buttonUnselected" onclick="showAll()" id="allButton">ALL</button>
                         <button class="buttonUnselected" onclick="showRelevance('identical')" id="identicalButton">IDENTICAL</button>
@@ -231,8 +263,16 @@
                     <h3>Vehicles from the <%=generation%> generation</h3>
                     <div class="scrollingContainer">
                     <%
+                        String currentLocation = "";
+                        int numIdentical = 0;
                         for (Car c : newCars) {
                             if (c.relevance == Relevance.IDENTICAL) {
+                                numIdentical++;
+                                if (!c.locationName.equals(currentLocation)) {
+                                    currentLocation = c.locationName;
+                                    String prettyLocation = c.locationName.replace("PICK-n-PULL ", "");
+                                    out.write(String.format("<h2 class='location-label'>%s</h2>", prettyLocation));
+                                }
                                 out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
                                         + "<img %s src='" + c.imageURL + "'>"
                                         + "<p class='title'>%d %s</p>"
@@ -250,8 +290,16 @@
                     <h3>Vehicles that may contain parts you're looking for</h3>
                     <div class="scrollingContainer">
                     <%
+                        currentLocation = "";
+                        int numPartial = 0;
                         for (Car c : newCars) {
                             if (c.relevance == Relevance.PARTIAL) {
+                                numPartial++;
+                                if (!c.locationName.equals(currentLocation)) {
+                                    currentLocation = c.locationName;
+                                    String prettyLocation = c.locationName.replace("PICK-n-PULL ", "");
+                                    out.write(String.format("<h2 class='location-label'>%s</h2>", prettyLocation));
+                                }
                                 out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
                                         + "<img %s src='" + c.imageURL + "'>"
                                         + "<p class='title'>%d %s</p>"
@@ -270,8 +318,10 @@
                     <h3>Other vehicles that are most likely irrelevant to your search</h3>
                     <div class="scrollingContainer">
                     <%
+                        int numOther = 0;
                         for (Car c : newCars) {
                             if (c.relevance == Relevance.NONE) {
+                                numOther++;
                                 out.write(String.format("<a class='cardLink' href='%s'> <div class='card'>"
                                         + "<p class='title'>%d %s</p>"
                                         + "<p class='subtitle'>Generation: %s</p>"
@@ -280,13 +330,32 @@
                                         + "</div></a>", c.carURL, c.year, c.model.replace("-", " "), c.generation, c.locationName, c.row, c.vin));
                             }
                         }
+                        
+                        session.setAttribute("numIdentical", numIdentical);
+                        session.setAttribute("numPartial", numPartial);
+                        session.setAttribute("numOther", numOther);
                     %>
                     </div>
                 </div>
+                    
+                    <div class="table-container">
+                        <%
+                            out.write(m.getTablesHTML(newCars));
+                        %>
+                    </div>
                 
+                <script>setNumbers(${numIdentical},${numPartial},${numOther});</script>
+                <script>assignResultsListeners();</script>
                 <script>showAll();</script>
                 <script>enableDragging();</script>
             </c:otherwise>
         </c:choose>
+            <%
+                for (Car c : newCars) {
+                    c = null;
+                }
+                m = null;
+                System.gc();
+            %>
     </body>
 </html>
